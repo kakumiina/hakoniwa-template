@@ -70,6 +70,38 @@ window.HAKONIWA_CONFIG = {
 | `{TOWN}` | townName |
 | `{time}` | 今の時刻（セリフだけ） |
 
+## キャラのカスタム
+
+案内役は、わざと飾りのない「デフォルト」の見た目にしてあります。CONFIG の `character` を書き換えて、自分のキャラに育ててください。
+
+```js
+character: {
+  hair: '#3b2a20',      // 髪の色（影と明るい部分は自動で作られる）
+  skin: '#f1cbb0',      // 肌の色
+  eyes: '#5a3c28',      // 目（瞳）の色
+  hairStyle: 'short',   // 'short'（ショート）か 'bob'（ボブ）
+  outfits: [            // 着替えの一覧。1つ目が最初に着ている服
+    {id:'casual', label:'普段着', color:'#4f6d8f', pants:'#34343c', shoes:'#3a2a20', length:'short'},
+    ...
+  ]
+}
+```
+
+| 項目 | 効くところ |
+|---|---|
+| `hair` | 髪の色（前髪・横・後ろ、眉の色） |
+| `skin` | 顔・首・手・耳の色 |
+| `eyes` | 瞳の色（濃淡は自動） |
+| `hairStyle` | 最初の髪型。着替えパネルの「髪型」でも切り替えられる |
+| `outfits[].color` | 服の色（腰の帯・すそ・袖口は少し暗い同系色） |
+| `outfits[].pants` / `shoes` | 脚（ズボン・タイツ）と靴の色 |
+| `outfits[].length` | `'short'` は上着＋ズボン、`'long'` は長い丈 |
+
+服を増やすときは、`outfits` に `{id:'かぶらない英字', label:'着替えパネルに出る名前', color:..., pants:..., shoes:..., length:...}` を1行足します。
+スパに入ったときの水着（`swim`）は別に用意されていて、出ると元の服に戻ります。
+
+形そのもの（髪型の形・服のシルエット）を変えたいときは、`index.html` の `hairStyle(id)`（髪）と `plainOutfit(o)`（服）を書き換えます。顔の描き方は `drawFace()` です。
+
 ## セリフを足す（lines.js）
 
 `lines.js` に書いたセリフは、本体のセリフ表に「足される」だけです（無くても動きます）。
